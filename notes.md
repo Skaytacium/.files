@@ -1,13 +1,7 @@
 # notes
 ## Drivers?
 ### mac
-- webcam -> https://github.com/patjak/facetimehd -> `/usr/src/facetimehd-0.1` (dkms directory)
-	- firmware -> https://github.com/patjak/facetimehd-firmware/
-    - `make; make install`
-- R9 M370X -> `amdgpu` (supports video decode)
-- trackpad -> `bcm5974`
-- daisy chain boot -> https://github.com/0xbb/apple_set_os.efi
-- cmdline -> `quiet acpi_osi=Darwin radeon.si_support=0 amdgpu.si_support=1`
+- cmdline: `quiet acpi_osi=Darwin radeon.si_support=0 amdgpu.si_support=1`
 
 ### msi
 - `https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/tree/iwlwifi-ty*(latest).{ucode, pnvm}` -> `/usr/lib/modules`
@@ -16,9 +10,27 @@
 
 ## Programs?
 ### mac
-- amdgpu_top
+- apple_set_os
     ```sh
-	cargo install amdgpu_top
+    mkdir /boot/efi/EFI/custom
+    cd /boot/efi/EFI/custom
+    curl -L https://github.com/0xbb/apple_set_os.efi/releases/download/v1/apple_set_os.efi -o apple_set_os.efi
+    ```
+- facetimehd-firmware
+    ```sh
+    cd /usr/local/src
+    git clone https://github.com/patjak/facetimehd-firmware
+    cd facetimehd-firmware
+    make
+    make install
+    ```
+- facetimehd
+    ```sh
+    cd /usr/src
+    git clone https://github.com/patjak/facetimehd facetimehd-0.1
+    cd facetimehd-0.1
+    make
+    make install
     ```
 - jellyfin -> dotnet
     ```sh
@@ -34,6 +46,10 @@
 	cd mergerfs-tools
 	make install
     ```
+- amdgpu_top
+    ```sh
+	cargo install amdgpu_top
+    ```
 
 ### msi
 - OpenTabletDriver -> dotnet
@@ -45,16 +61,18 @@
 	rm -r opentabletdriver opentabletdriver*.tar.gz
     ```
 ### both
-- mpv-mpris
+- zsh4humans
     ```sh
-	cd ~/.config/mpv/scripts
-	curl https://api.github.com/repos/hoyon/mpv-mpris/releases/latest | rg 'browser_download_url.*so' | sd '.*: "(.*)"' '$1' | wget -i -
+	sh -c "$(curl -fsSL httpsraw.githubusercontent.com/romkatv/zsh4humans/v5/install)"
     ```
-- cpufetch
+- dotnet
+    ```sh
+	curl "https://raw.githubusercontent.com/dotnet/install-scripts/main/src/dotnet-install.sh" | bash -s -- -c STS --install-dir /opt/dotnet
+    ```
+- {dwm, dmenu}
     ```sh
 	cd /usr/local/src
-	git clone https://github.com/dr-noob/cpufetch
-	cd cpufetch
+	cd {dwm, dmenu}
 	make
 	make install
     ```
@@ -65,23 +83,12 @@
 	cd shell-color-scripts
 	make install
     ```
-- {dwm, dmenu} -> ?
-    ```sh
-	cd /usr/local/src
-	cd {dwm, dmenu}
-	make
-	make install
-    ```
 - paq-nvim
     ```sh
 	git clone --depth=1 https://github.com/savq/paq-nvim.git ~/.local/share/nvim/site/pack/paqs/start/paq-nvim
     ```
-- JamesDSP4Linux -> ?
+- JamesDSP4Linux
     ```sh
-    ```
-- dotnet
-    ```sh
-	curl "https://raw.githubusercontent.com/dotnet/install-scripts/main/src/dotnet-install.sh" | bash -s -- -c STS --install-dir /opt/dotnet
     ```
 - ungoogled-chromium
     ```sh
@@ -94,9 +101,18 @@
     ```sh
 	rustup-init -y --default-host x86_64-unknown-linux-gnu --default-toolchain stable
     ```
-- zsh4humans
+- mpv-mpris
     ```sh
-	sh -c "$(curl -fsSL httpsraw.githubusercontent.com/romkatv/zsh4humans/v5/install)"
+	cd ~/.config/mpv/scripts
+	curl https://api.github.com/repos/hoyon/mpv-mpris/releases/latest | rg 'browser_download_url.*so' | sd '.*: "(.*)"' '$1' | wget -i -
+    ```
+- cpufetch
+    ```sh
+	cd /usr/local/src
+	git clone https://github.com/dr-noob/cpufetch
+	cd cpufetch
+	make
+	make install
     ```
 - fisher
     ```sh
