@@ -20,7 +20,7 @@
     ```sh
 	cargo install amdgpu_top
     ```
-- jellyfin
+- jellyfin -> dotnet
     ```sh
 	cd /usr/local/src
 	git clone https://github.com/jellyfin/jellyfin
@@ -36,7 +36,7 @@
     ```
 
 ### msi
-- OpenTabletDriver
+- OpenTabletDriver -> dotnet
     ```sh
 	cd /
 	curl https://api.github.com/repos/OpenTabletDriver/OpenTabletDriver/releases/latest | rg 'browser_download_url.*opentabletdriver-.*tar.gz' | sd '.*: "(.*)"' '$1' | wget -i -
@@ -76,7 +76,7 @@
     ```sh
 	git clone --depth=1 https://github.com/savq/paq-nvim.git ~/.local/share/nvim/site/pack/paqs/start/paq-nvim
     ```
-- JamesDSP4Linux
+- JamesDSP4Linux -> ?
     ```sh
     ```
 - dotnet
