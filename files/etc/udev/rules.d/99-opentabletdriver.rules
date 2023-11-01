@@ -1,0 +1,7 @@
+# Modified by me to only add my tablet
+KERNEL=="uinput", SUBSYSTEM=="misc", TAG+="uaccess", OPTIONS+="static_node=uinput"
+
+# XP-Pen Deco 01 V2
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="28bd", ATTRS{idProduct}=="0905", MODE="0666"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="28bd", ATTRS{idProduct}=="0905", MODE="0666"
+SUBSYSTEM=="input", ATTRS{idVendor}=="28bd", ATTRS{idProduct}=="0905", ENV{LIBINPUT_IGNORE_DEVICE}="1"

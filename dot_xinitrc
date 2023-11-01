@@ -1,0 +1,17 @@
+xrdb -merge ~/.Xresources &
+
+sxhkd &
+
+picom &
+hsetroot -solid "#282828" &
+
+pipewire &
+pipewire-pulse &
+# is wireplumber is fast or pipewire is slow?
+sleep 3 && wireplumber &
+
+alsactl restore &
+playerctld daemon &
+
+# exec dbus-launch --autolaunch="$(cat /var/lib/dbus/machine-id)" dwm
+exec dwm

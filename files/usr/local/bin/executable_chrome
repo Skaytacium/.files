@@ -1,0 +1,3 @@
+#!/bin/dash
+
+/home/programs/chrome/chrome --enable-features=VaapiVideoDecoder $@

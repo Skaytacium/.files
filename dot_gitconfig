@@ -1,0 +1,27 @@
+[core]
+	pager = delta
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[user]
+	email = sidk@tuta.io
+	name = Sid
+[interactive]
+	diffFilter = delta --color-only
+[add.interactive]
+	useBuiltin = false
+[delta]
+	navigate = true
+	side-by-side = true
+[merge]
+	conflictstyle = zdiff3
+[diff]
+	colorMoved = default
+[pull]
+	rebase = true
+[push]
+	autoSetupRemote = true
+[commit]
+	gpgSign = true
+[tag]
+	gpgSign = true

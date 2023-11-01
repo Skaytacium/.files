@@ -1,0 +1,6 @@
+require("plugins")
+require("opts")
+require("globals")
+require("lsp")
+require("auto")
+require("binds")

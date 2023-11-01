@@ -1,0 +1,5 @@
+{{- if eq .chezmoi.hostname "mac" }}
+{{- include "xorg.conf_mbp" }}
+{{- else if eq .chezmoi.hostname "msi" }}
+{{- include "xorg.conf_msi" }}
+{{- end }}

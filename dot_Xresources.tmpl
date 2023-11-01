@@ -1,0 +1,1 @@
+Xft.dpi: {{ if eq .chezmoi.hostname "mac" -}} 192 {{- else if eq .chezmoi.hostname "msi" -}} 120 {{- else -}} 96 {{- end}}

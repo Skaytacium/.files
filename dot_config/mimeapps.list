@@ -1,0 +1,13 @@
+[Default Applications]
+x-scheme-handler/http=chrome.desktop
+x-scheme-handler/https=chrome.desktop
+x-scheme-handler/about=chrome.desktop
+x-scheme-handler/terminal=kitty.desktop
+text/html=chrome.desktop
+application/pdf=zathura.desktop
+image/bmp=imv.desktop
+image/gif=imv.desktop
+image/png=imv.desktop
+image/jpeg=imv.desktop
+image/tiff=imv.desktop
+inode/directory=lf.desktop

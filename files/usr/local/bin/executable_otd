@@ -1,0 +1,7 @@
+#!/bin/dash
+# Simple OpenTabletDriver daemon-init and kill script
+
+/usr/local/src/OpenTabletDriver/bin/OpenTabletDriver.Daemon &
+DAEMON_PID=$!
+
+/usr/local/src/OpenTabletDriver/bin/OpenTabletDriver.UX.Gtk && kill "$DAEMON_PID"

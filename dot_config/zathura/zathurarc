@@ -1,0 +1,35 @@
+set guioptions ""
+
+set default-fg "#EBDBB2"
+set default-bg "#282828"
+
+set statusbar-fg "#EBDBB2"
+set statusbar-bg "#282828"
+set inputbar-fg "#EBDBB2"
+set inputbar-bg "#282828"
+
+set notification-fg "#EBDBB2"
+set notification-bg "#282828"
+set notification-warning-fg "#D79921"
+set notification-warning-bg "#282828"
+set notification-error-fg "#CC241D"
+set notification-error-bg "#282828"
+
+set completion-fg "#EBDBB2"
+set completion-bg "#282828"
+set completion-highlight-fg "#458588"
+set completion-highlight-bg "#282828"
+
+set index-fg "#EBDBB2"
+set index-bg "#282828"
+set index-active-fg "#458588"
+set index-active-bg "#282828"
+
+set recolor true
+set recolor-keephue true
+set recolor-darkcolor "#EBDBB2"
+set recolor-lightcolor "#282828"
+set recolor-reverse-video true
+
+
+map <C-i> recolor

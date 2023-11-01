@@ -1,0 +1,1 @@
+KERNEL=="1-12:1.2", RUN+="/bin/sh -c 'echo %k > /sys/bus/usb/drivers/usbmouse/unbind'", RUN+="/bin/sh -c 'echo %k > /sys/bus/usb/drivers/bcm5974/bind'"

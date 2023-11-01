@@ -1,0 +1,9 @@
+Protocol 2
+PermitRootLogin no
+AuthorizedKeysFile	.ssh/authorized_keys
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+X11Forwarding no
+UsePAM yes
+AcceptEnv no
+Subsystem	sftp	/usr/libexec/sftp-server

@@ -1,0 +1,7 @@
+# declarative udev rules to mount specific hard drives to specific folders in /mnt
+
+KERNEL=="sd*", SUBSYSTEM=="block", ACTION=="add", ENV{PARTN}=="1", ENV{ID_SERIAL_SHORT}=="DD20230526983", RUN+="/bin/sh -c 'mount /dev/%k /mnt/hdd/5-5VJ8KHW3'"
+KERNEL=="sd*", SUBSYSTEM=="block", ACTION=="add", ENV{PARTN}=="1", ENV{ID_SERIAL_SHORT}=="DD20230526948", RUN+="/bin/sh -c 'mount /dev/%k /mnt/hdd/5-5VJDXEHL'"
+KERNEL=="sd*", SUBSYSTEM=="block", ACTION=="add", ENV{PARTN}=="1", ENV{ID_SERIAL_SHORT}=="DD202306029FC", RUN+="/bin/sh -c 'mount /dev/%k /mnt/hdd/10-WL12LV63'"
+KERNEL=="sd*", SUBSYSTEM=="block", ACTION=="add", ENV{PARTN}=="1", ENV{ID_SERIAL_SHORT}=="NA336SA0", RUN+="/bin/sh -c 'mount /dev/%k /mnt/hdd/10-NA336SA0'"
+KERNEL=="sd*", SUBSYSTEM=="block", ACTION=="add", ENV{PARTN}=="1", ENV{ID_SERIAL_SHORT}=="WD-WXQ1EB57YVYC", RUN+="/bin/sh -c 'mount /dev/%k /mnt/hdd/20-WXQ1EB57YVYC'"

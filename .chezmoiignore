@@ -1,0 +1,18 @@
+README.md
+vm
+.config/qutebrowser
+.config/awesome
+{{- if ne .chezmoi.hostname "mac" }}
+scripts/bright.sh
+scripts/dbd.sh
+scripts/gpuswitch.sh
+files/etc/sv/mbpfan/run
+files/etc/udev/rules.d/10-trackpad.rules
+files/etc/udev/rules.d/90-mount.rules
+files/etc/X11/xorg.conf_mbp
+{{- else if ne .chezmoi.hostname "msi" }}
+files/etc/udev/rules.d/40-vfio.rules
+files/etc/udev/rules.d/99-opentabletdriver.rules
+files/etc/X11/xorg.conf_msi
+files/usr/local/bin/otd
+{{- end }}

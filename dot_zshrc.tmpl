@@ -1,0 +1,163 @@
+# Skaytacium's .zshrc
+
+# zsh4humans (this is started first because instant prompt)
+# Set all the configuration options
+zstyle ':z4h:' auto-update 'no'
+zstyle ':z4h:' auto-update-days '28'
+zstyle ':z4h:bindkey' keyboard 'mac'
+zstyle ':z4h:' start-tmux 'no'
+zstyle ':z4h:' term-shell-integration 'yes'
+zstyle ':z4h:autosuggestions' forward-char 'accept'
+zstyle ':z4h:fzf-complete' recurse-dirs 'no'
+zstyle ':z4h:direnv' enable 'no'
+zstyle ':z4h:direnv:success' notify 'yes'
+zstyle ':z4h:ssh:*' enable 'no'
+zstyle ':z4h:' prompt-at-bottom 'yes'
+zstyle ':autocomplete:*' recent-dirs zoxide
+
+z4h init || return
+
+z4h bindkey undo Ctrl+/   Shift+Tab  # undo the last command line change
+z4h bindkey redo Option+/            # redo the last undone command line change
+
+z4h bindkey z4h-cd-back    Shift+Left   # cd into the previous directory
+z4h bindkey z4h-cd-forward Shift+Right  # cd into the next directory
+z4h bindkey z4h-cd-up      Shift+Up     # cd into the parent directory
+z4h bindkey z4h-cd-down    Shift+Down   # cd into a child directory
+
+
+# Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
+setopt glob_dots     # no special treatment for file names with a leading dot
+setopt no_auto_menu  # require an extra TAB press to open the completion menu
+
+autoload -Uz zmv
+
+
+# Environment
+export DOTNET_ROOT=/opt/dotnet
+export EDITOR=/usr/bin/nvim
+export KEYTIMEOUT=1
+export BAT_THEME=ansi
+{{- if eq .chezmoi.hostname "mac" }}
+export LIBVA_DRIVER_NAME=radeonsi
+{{- end }}
+export LESS=-r
+
+export PATH="$PATH:$HOME/scripts:$HOME/.local/bin"
+export HISTSIZE=10000
+export SAVEHIST=$HISTSIZE
+export HISTFILE="$HOME/.zshistory"
+
+POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
+
+# Aliases
+alias clear=z4h-clear-screen-soft-bottom
+alias cls=z4h-clear-screen-soft-bottom
+alias spotify='dbus-launch --autolaunch="$(cat /var/lib/dbus/machine-id)" ncspot'
+alias ncspot='dbus-launch --autolaunch="$(cat /var/lib/dbus/machine-id)" ncspot'
+
+# alias sudo=doas
+alias cat=bat
+alias du=dust
+alias grep=rg
+alias sed=sd
+alias vol=alsamixer
+
+alias ls="exa --icons"
+alias lsa="exa -a --icons"
+alias l1="exa -1 --icons"
+alias l1a="exa -1a --icons"
+alias ll="exa -lgb --icons --header"
+alias lla="exa -lgba --icons --header"
+alias lt="exa -Tgb -L 3 --icons"
+alias lta="exa -Tgba -L 3 --icons"
+
+alias lsblk="lsblk -o +PARTUUID,LABEL"
+alias chkcpu="watch -n 0.2 speak"
+alias chkdisk="watch -n 0.5 lsblk"
+# alias poweroff="doas poweroff"
+# alias reboot="doas reboot"
+# alias shutdown="doas poweroff"
+
+alias ap="nvim ~/.packages"
+# alias xa='doas xbps-install -Su $(cat ~/.packages)'
+alias xa='xbps-install -Su $(cat ~/.packages)'
+alias xf="xbps-query -Rs"
+# alias xr="doas xbps-remove -OoRf"
+# alias xc="doas xbps-reconfigure -f"
+alias xr="xbps-remove -OoRf"
+alias xc="xbps-reconfigure -f"
+
+
+# zoxide
+eval "$(zoxide init zsh --cmd cd)"
+
+
+# Functions
+{{- if eq .chezmoi.hostname "mac" }}
+# Fan temps
+setfantemps() {
+	/bin/dash -c "echo '[general]
+		low_temp = ${1}
+		high_temp = ${2}
+		max_temp = ${3}
+		polling_interval = ${4}' > /etc/mbpfan.conf"
+
+	sv restart /var/service/mbpfan
+}
+# CPU speed
+setcpuspeed() {
+	cpupower frequency-set -d "${1}00MHz" -u "${2}00MHz"
+}
+# Static speed register set
+dbd() {
+	r=$(rdmsr 0x1FC)
+	s='0x'$r'' 
+	f=$(($s&0xFFFFE))
+
+	wrmsr 0x1FC "obase=16;$f" | bc
+}
+# Brightness via ssh
+bright() {
+	echo "$1" | tee /sys/class/backlight/gmux_backlight/brightness >/dev/null
+}
+{{- end }}
+# Toggle boost
+setboost() {
+	if [ "$(cat /sys/devices/system/cpu/intel_pstate/no_turbo)" = 0 ]; then
+		echo "1" | tee /sys/devices/system/cpu/intel_pstate/no_turbo >/dev/null
+		echo "boost off"
+	else
+		echo "0" | tee /sys/devices/system/cpu/intel_pstate/no_turbo >/dev/null
+		echo "boost on"
+	fi
+}
+# Mail
+mail() {
+	less /var/mail/"$1"
+}
+# Simple mount
+mnt() {
+	CHOICE=$(lsblk -l -o NAME,SIZE,TYPE,MOUNTPOINT | awk '!/nvme/' | grep part | awk '{ print $1, "(" $2 ", " $4 ")" }' | (dmenu -i || fzf) | awk '{ print $1 }')
+	[ $(echo "$CHOICE" | wc -c) -eq 1 ] && exit 1
+	MOUNTP=$(ls /media | (dmenu -i || fzf))
+	[ -d "/media/$MOUNTP" ] || mkdir "/media/$MOUNTP"
+	mount "/dev/$CHOICE" "/media/$MOUNTP"
+}
+# Kernel parameters
+kernelparams() {
+	efibootmgr -q -b {{ if eq .chezmoi.hostname "mpb" -}} 0001 {{- else -}} 0000 {{- end}} -B
+	if ! [ -e /tmp/kernel_params ]; then
+		cat /proc/cmdline >/tmp/kernel_params
+	fi
+	nvim /tmp/kernel_params
+	efibootmgr -q -c -L "{{ .chezmoi.hostname }}" -l vmlinuz -u "$(cat /tmp/kernel_params)"
+{{- if eq .chezmoi.hostname "mac" }}
+	efibootmgr -o 0000,0001
+{{- end }}
+}
+
+
+colorscript -r
