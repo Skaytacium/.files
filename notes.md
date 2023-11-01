@@ -106,9 +106,8 @@
 ## TODO?
 1. make xbps src packages
 2. make scripts in chezmoi
-	1. to copy files
+	1. ~~to copy files~~
 	2. to install non xbps-src packages
 	3. to install xbps-src packages
-	4. to install other random packages
-	5. to setup drivers
-	6. whatever other misc stuff remains
+	4. to setup drivers
+	5. whatever other misc stuff remains
