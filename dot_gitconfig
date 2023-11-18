@@ -4,8 +4,8 @@
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
 [user]
-	email = sidk@tuta.io
-	name = Sid
+	email = 58383260+Skaytacium@users.noreply.github.com
+	name = Sid K
 [interactive]
 	diffFilter = delta --color-only
 [add.interactive]
