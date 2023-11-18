@@ -8,13 +8,13 @@ static const int topbar             = 0;        /* 0 means bottom bar */
 static const char *fonts[]          = { "monospace:size=24" };
 static const char dmenufont[]       = "monospace:size=24";
 static const char col_bg[]       	= "#282828";
-static const char col_border[]      = "#fbf1c7";
-static const char col_fg[]       	= "#bdae93";
-static const char col_sel_bg[]      = "#504945";
+static const char col_border[]      = "#ebdbb2";
+static const char col_fg[]       	= "#ebdbb2";
+static const char col_sel_fg[]      = "#689d6a";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_fg, col_bg, col_border },
-	[SchemeSel]  = { col_fg, col_sel_bg,  col_sel_bg  },
+	[SchemeSel]  = { col_sel_fg, col_bg, col_border },
 };
 
 /* tagging */

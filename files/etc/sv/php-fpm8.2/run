@@ -1,0 +1,4 @@
+#!/bin/sh
+[ -r conf ] && . ./conf
+[ -d /run/php ] || mkdir /run/php
+exec php-fpm8.2 --nodaemonize ${OPTS}

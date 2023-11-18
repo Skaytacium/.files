@@ -1,5 +1,4 @@
 Protocol 2
-PermitRootLogin no
 AuthorizedKeysFile	.ssh/authorized_keys
 PasswordAuthentication no
 ChallengeResponseAuthentication no

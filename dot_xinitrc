@@ -6,9 +6,10 @@ picom &
 hsetroot -solid "#282828" &
 
 pipewire &
-pipewire-pulse &
-# is wireplumber is fast or pipewire is slow?
-sleep 3 && wireplumber &
+# do this the right way, add config file to pipewire
+# pipewire-pulse &
+## is wireplumber is fast or pipewire is slow?
+# sleep 3 && wireplumber &
 
 alsactl restore &
 playerctld daemon &

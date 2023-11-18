@@ -1,0 +1,28 @@
+{{- if eq .chezmoi.hostname "mac" -}}
+# hardware
+XF86KbdBrightness{Up,Down}
+	echo "$(cat /sys/class/leds/smc::kbd_backlight/brightness)" {+,-} 32 | bc | tee /sys/class/leds/smc::kbd_backlight/brightness || echo 0 | tee /sys/class/leds/smc::kbd_backlight/brightness
+{{- end }}
+
+# audio
+XF86AudioMute
+	amixer sset Master toggle
+{_,shift + , super + }XF86Audio{Raise,Lower}Volume
+	amixer sset Master {20%,5%,1%}{+,-}
+
+XF86Audio{Prev,Play,Next}
+	playerctl {previous, play-pause, next}
+shift + XF86Audio{Prev,Next}
+	playerctl position 5{-,+}
+shift + XF86AudioPlay
+	playerctl shuffle toggle
+super + XF86Audio{Prev,Play,Next}
+	playerctl loop {none, playlist, track}
+
+# launching
+super + shift + s
+	screenshot.sh
+super + shift + f
+	firefox
+super + Return
+	kitty

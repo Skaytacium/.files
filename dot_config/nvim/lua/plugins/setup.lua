@@ -1,4 +1,7 @@
--- Treesitter
+-- gruvbox
+local gruvbox = require "../gruvbox"
+
+-- treesitter
 require "nvim-treesitter.install".compilers = { "gcc", "zig" }
 require "nvim-treesitter.configs".setup {
 	ensure_installed = { "bash", "c", "c_sharp", "cmake", "comment", "cpp", "css", "go", "gomod", "html", "javascript", "json", "lua", "make", "ninja", "python", "regex", "rust", "typescript", "yaml", "zig" },
@@ -11,7 +14,7 @@ require "nvim-treesitter.configs".setup {
 	}
 }
 
--- Barbar
+-- barbar
 require "barbar".setup {
 	icons = {
 		button = false,
@@ -20,34 +23,70 @@ require "barbar".setup {
 	animation = false
 }
 
--- Lualine
+-- gitsigns
+require "gitsigns".setup {
+	signcolumn = false,
+	numhl = true,
+}
+
+-- nvim-colorizer
+-- Waiting for https://github.com/norcalli/nvim-colorizer.lua/issues/96
+-- require "colorizer".setup {}
+
+-- lualine
 require "lualine".setup {
 	options = {
 		icons_enabled = true,
-		theme = "gruvbox_dark",
+		theme = {
+			normal = {
+				a = { bg = gruvbox.black, fg = gruvbox.white, gui = 'bold' },
+				b = { fg = gruvbox.gray },
+				c = { fg = gruvbox.gray },
+			},
+			insert = {
+				a = { fg = gruvbox.light.blue },
+				b = { fg = gruvbox.blue },
+				c = { fg = gruvbox.blue },
+			},
+			visual = {
+				a = { fg = gruvbox.light.yellow },
+				b = { fg = gruvbox.yellow },
+				c = { fg = gruvbox.yellow },
+			},
+			replace = {
+				a = { fg = gruvbox.light.red },
+				b = { fg = gruvbox.red },
+				c = { fg = gruvbox.red },
+			},
+			command = {
+				a = { fg = gruvbox.light.green },
+				b = { fg = gruvbox.green },
+				c = { fg = gruvbox.green },
+			},
+		},
 		section_separators = "",
 		component_separators = "",
-	},
+	}
 }
 
--- Presence
+-- presence
 require "presence":setup {
-	neovim_image_text = "what should i put here :thinking:",
+	neovim_image_text = "idk",
 	main_image = "file"
 }
 
--- Telescope
+-- telescope
 local telescope = require "telescope"
 telescope.setup()
 telescope.load_extension("fzf")
 telescope.load_extension("file_browser")
 
--- Indent guides
+-- indent guides
 require "ibl".setup {
 	scope = { enabled = true },
 }
 
--- Context
+-- context
 require "treesitter-context".setup {
 	patterns = {
 		default = {

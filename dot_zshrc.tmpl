@@ -1,7 +1,7 @@
 # Skaytacium's .zshrc
 
 # zsh4humans (this is started first because instant prompt)
-# Set all the configuration options
+# set all the configuration options
 zstyle ':z4h:' auto-update 'no'
 zstyle ':z4h:' auto-update-days '28'
 zstyle ':z4h:bindkey' keyboard 'mac'
@@ -26,14 +26,15 @@ z4h bindkey z4h-cd-up      Shift+Up     # cd into the parent directory
 z4h bindkey z4h-cd-down    Shift+Down   # cd into a child directory
 
 
-# Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
+# set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
 
 autoload -Uz zmv
 
 
-# Environment
+# environment
+export XDG_RUNTIME_DIR=/run/user/0
 export DOTNET_ROOT=/opt/dotnet
 export EDITOR=/usr/bin/nvim
 export KEYTIMEOUT=1
@@ -52,7 +53,7 @@ POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 
-# Aliases
+# aliases
 alias clear=z4h-clear-screen-soft-bottom
 alias cls=z4h-clear-screen-soft-bottom
 alias spotify='dbus-launch --autolaunch="$(cat /var/lib/dbus/machine-id)" ncspot'
@@ -80,8 +81,9 @@ alias chkdisk="watch -n 0.5 lsblk"
 # alias poweroff="doas poweroff"
 # alias reboot="doas reboot"
 # alias shutdown="doas poweroff"
+alias ce="chezmoi edit -a" 
 
-alias ap="nvim ~/.packages"
+alias ap="chezmoi edit -a ~/.packages"
 # alias xa='doas xbps-install -Su $(cat ~/.packages)'
 alias xa='xbps-install -Su $(cat ~/.packages)'
 alias xf="xbps-query -Rs"
@@ -95,9 +97,9 @@ alias xc="xbps-reconfigure -f"
 eval "$(zoxide init zsh --cmd cd)"
 
 
-# Functions
+# functions
 {{- if eq .chezmoi.hostname "mac" }}
-# Fan temps
+# fan temps
 setfantemps() {
 	/bin/dash -c "echo '[general]
 		low_temp = ${1}
@@ -109,9 +111,9 @@ setfantemps() {
 }
 # CPU speed
 setcpuspeed() {
-	cpupower frequency-set -d "${1}00MHz" -u "${2}00MHz"
+	cpupower frequency-set -d "${1}00MHz" -u "${1}00MHz"
 }
-# Static speed register set
+# static speed register set
 dbd() {
 	r=$(rdmsr 0x1FC)
 	s='0x'$r'' 
@@ -119,12 +121,12 @@ dbd() {
 
 	wrmsr 0x1FC "obase=16;$f" | bc
 }
-# Brightness via ssh
+# brightness via ssh
 bright() {
 	echo "$1" | tee /sys/class/backlight/gmux_backlight/brightness >/dev/null
 }
 {{- end }}
-# Toggle boost
+# toggle boost
 setboost() {
 	if [ "$(cat /sys/devices/system/cpu/intel_pstate/no_turbo)" = 0 ]; then
 		echo "1" | tee /sys/devices/system/cpu/intel_pstate/no_turbo >/dev/null
@@ -134,11 +136,20 @@ setboost() {
 		echo "boost on"
 	fi
 }
-# Mail
+# mail
 mail() {
 	less /var/mail/"$1"
 }
-# Simple mount
+# chezmoi add
+ca() {
+	if echo "$(realpath "$1")" | rg "$HOME.*" >/dev/null; then
+		chezmoi add "$1"
+	else
+		mkdir -p "$HOME/.local/share/chezmoi/files$(dirname "$(realpath "$1")")" 2>/dev/null;
+		cp -r "$1" "$HOME/.local/share/chezmoi/files$(dirname "$(realpath "$1")")"
+	fi
+}
+# simple mount
 mnt() {
 	CHOICE=$(lsblk -l -o NAME,SIZE,TYPE,MOUNTPOINT | awk '!/nvme/' | grep part | awk '{ print $1, "(" $2 ", " $4 ")" }' | (dmenu -i || fzf) | awk '{ print $1 }')
 	[ $(echo "$CHOICE" | wc -c) -eq 1 ] && exit 1
@@ -146,18 +157,21 @@ mnt() {
 	[ -d "/media/$MOUNTP" ] || mkdir "/media/$MOUNTP"
 	mount "/dev/$CHOICE" "/media/$MOUNTP"
 }
-# Kernel parameters
+# kernel parameters
 kernelparams() {
-	efibootmgr -q -b {{ if eq .chezmoi.hostname "mpb" -}} 0001 {{- else -}} 0000 {{- end}} -B
+	efibootmgr -q -b {{ if eq .chezmoi.hostname "mac" -}} 0001 {{- else -}} 0000 {{- end}} -B
 	if ! [ -e /tmp/kernel_params ]; then
 		cat /proc/cmdline >/tmp/kernel_params
 	fi
 	nvim /tmp/kernel_params
 	efibootmgr -q -c -L "{{ .chezmoi.hostname }}" -l vmlinuz -u "$(cat /tmp/kernel_params)"
 {{- if eq .chezmoi.hostname "mac" }}
-	efibootmgr -o 0000,0001
+	efibootmgr -o 0000,0001 -u
 {{- end }}
 }
 
+# final touchups
+# XDG_RUNTIME_DIR
+[ -d "/run/user/0" ] || mkdir "/run/user/0"
 
 colorscript -r

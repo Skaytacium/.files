@@ -41,7 +41,6 @@ lsp.rust_analyzer.setup(coq {
 })
 -- Lua
 lsp.lua_ls.setup(coq {
-	cmd = { "/usr/src/lua-language-server/bin/lua-language-server" },
 	settings = {
 		Lua = {
 			runtime = {

@@ -8,7 +8,7 @@ require("paq") {
 	-- Commenting
 	"tpope/vim-commentary";
 	-- Syntax highlighting (and a lot more)
-	{ "nvim-treesitter/nvim-treesitter", run=function() vim.cmd "TSUpdate" end };
+	{ "nvim-treesitter/nvim-treesitter", build=function() vim.cmd "TSUpdate" end };
 	-- Context
 	"nvim-treesitter/nvim-treesitter-context";
 	-- Tabs
@@ -19,12 +19,12 @@ require("paq") {
 	"gruvbox-community/gruvbox";
 	-- Line indents
 	"lukas-reineke/indent-blankline.nvim";
-	-- File explorer
+	-- File erunxplorer
 	"nvim-telescope/telescope-file-browser.nvim";
 	-- Fuzzy searcher
 	"nvim-telescope/telescope.nvim";
 	"nvim-lua/plenary.nvim";
-	{ "nvim-telescope/telescope-fzf-native.nvim", run="make" };
+	{ "nvim-telescope/telescope-fzf-native.nvim", build="make" };
 	-- Discord
 	"andweeb/presence.nvim";
 	-- LSP config
@@ -39,12 +39,14 @@ require("paq") {
 	"simrat39/rust-tools.nvim";
 	-- Git wriapper
 	"tpope/vim-fugitive";
+	-- Git integration
+	"lewis6991/gitsigns.nvim";
 	-- Alignment
 	"junegunn/vim-easy-align";
 	-- Icons
 	"kyazdani42/nvim-web-devicons";
 	-- Color previewer
-	{ "RRethy/vim-hexokinase", run="make hexokinase" };
+	"norcalli/nvim-colorizer.lua";
 }
 
-require("plugins.setup")
+require "plugins.setup"

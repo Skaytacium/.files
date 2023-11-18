@@ -14,11 +14,13 @@ bat
 bind-utils
 bluez
 btop
+cava
 chezmoi
 chrony
 clang-analyzer
 cmake
 coreutils
+cpupower
 curl
 curlpp
 dash
@@ -48,6 +50,7 @@ gdb
 git
 github-cli
 glibc-locales
+glibmm-devel
 glxinfo
 gnupg
 go
@@ -73,6 +76,7 @@ kitty
 kmod
 less
 lf
+libarchive-devel
 libgcc
 libspa-bluetooth
 libstdc++
@@ -80,6 +84,8 @@ libva-utils
 libX11-devel
 libXft-devel
 libXinerama-devel
+linux6.6
+linux6.6-headers
 linux-firmware-intel
 lm_sensors
 lsof
@@ -95,6 +101,7 @@ mdocml
 metalog
 miniserve
 mit-krb5
+mold
 mpv
 msr-tools
 n
@@ -109,10 +116,13 @@ opendoas
 openresolv
 openssh
 openssl
+qt5-qmake
+qt5-svg-devel
 pandoc
 pciutils
 picom
 pipewire
+pipewire-devel
 playerctl
 postfix
 postgresql
@@ -131,6 +141,7 @@ rtorrent
 runit-nftables
 runit-void
 rustup
+sc-im
 sd
 sed
 shadow
@@ -169,13 +180,16 @@ xrandr
 xrdb
 xsel
 xsettingsd
+xtools
 zellij
 zip
 zlib
 zoxide
 zsh
 {{- if eq .chezmoi.hostname "mac" }}
+composer
 dkms
+libdrm-devel
 libva-intel-driver
 linux-firmware-amd
 linux-firmware-broadcom
@@ -185,12 +199,18 @@ mergerfs
 mesa-demos
 mesa-vaapi
 mesa-vdpau
+nginx
+php
+php-fpm
+php-sqlite
 qbittorrent-nox
-qt5-qmake
+radeontop
+radeon-profile
 uacme
-xf86-video-amdgpu
+xf86-video-ati
 xfconf
 {{- else if eq .chezmoi.hostname "msi" }}
 intel-media-driver
+qbittorrent
 openjdk17-jre
 {{- end }}

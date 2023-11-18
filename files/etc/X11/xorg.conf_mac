@@ -1,5 +1,13 @@
+# Section "OutputClass"
+#     Identifier "intel"
+#     MatchDriver "i915"
+#     Driver "intel"
+# EndSection
+
 Section "OutputClass"
-    Identifier "intel"
-    MatchDriver "i915"
-    Driver "intel"
+	Identifier "Radeon"
+	MatchDriver "radeon"
+	Driver "radeon"
+	Option "TearFree" "true"
+	Option "DRI" "3"
 EndSection
