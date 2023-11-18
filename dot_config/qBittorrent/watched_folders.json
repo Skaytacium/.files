@@ -1,5 +1,5 @@
 {
-    "/home/skay/torrents": {
+    "/root/torrents": {
         "add_torrent_params": {
             "category": "",
             "download_limit": -1,
