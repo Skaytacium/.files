@@ -1,0 +1,145 @@
+- Media:
+    - Jellyfin:
+        icon: jellyfin.svg
+        href: "http://media.skaytacium.com"
+        description: "Media server"
+        widget:
+            type: jellyfin
+            url: "http://localhost:8096"
+            key: "2a9fe578096d466d9aaec7bdc0ba8417"
+            enableBlocks: true
+            enableNowPlaying: true
+    - Radarr:
+        icon: radarr.svg
+        href: "http://movies.skaytacium.com"
+        description: "Movie management"
+        widget:
+            type: radarr
+            url: "http://localhost:7878"
+            key: "14c17b03f58b4b838b4aaeab1f00aa22"
+            enableQueue: true
+    - Sonarr:
+        icon: sonarr.svg
+        href: "http://shows.skaytacium.com"
+        description: "Show management"
+        widget:
+            type: sonarr
+            url: "http://localhost:8989"
+            key: "14cd75bc41834fe2921df9a4b4ee47f7"
+            enableQueue: true
+    - Bazarr:
+        icon: bazarr.svg
+        href: "http://subs.skaytacium.com"
+        description: "Subtitle management"
+        widget:
+            type: bazarr
+            url: "http://localhost:6767"
+            key: "8c37b4aaea9998403d0689af935c0687"
+    # - Lychee:
+    #     icon: "https://raw.githubusercontent.com/LycheeOrg/Lychee/master/public/favicon.ico"
+    #     href: "http://skaytacium.com/l"
+    #     description: "Gallery and photo management"
+    - OpenBooks:
+        icon: mdi-book-open-blank-variant-outline-#d4d4d4
+        href: "http://books.skaytacium.com"
+        description: "IRC highway book downloader"
+    - Jellyseerr:
+        icon: "https://github.com/Fallenbagel/jellyseerr/blob/develop/public/android-chrome-512x512.png?raw=true"
+        href: "http://reqs.skaytacium.com"
+        description: "Request management"
+        widget:
+            type: jellyseerr
+            url: "http://localhost:5055"
+            key: "MTcwNzg2NjkzNzU5MmI5OTJlNzhkLTE3NWEtNGQ2OC05OWMyLTk5MjU4ZTEyNmZjNQ=="
+    # - Readarr:
+    #     icon: readarr.svg
+    #     href: "http://.skaytacium.com"
+    #     description: "Book management"
+    #     widget:
+    #         type: readarr
+    #         url: "http://localhost:8787"
+    #         key: "3a22eab13f644b03a09bda79ecf73a91"
+
+- Miscellaneous:
+    - Grocy:
+        icon: "http://house.skaytacium.com/img/icon.svg"
+        href: "http://house.skaytacium.com"
+        description: "ERP and household management"
+    - CyberChef:
+        icon: "http://chef.skaytacium.com/images/cyberchef-128x128.png"
+        href: "http://chef.skaytacium.com"
+        description: "Cyber swiss army knife"
+    - TheLounge:
+        icon: thelounge.svg
+        href: "http://irc.skaytacium.com"
+        description: "IRC client"
+
+- Metrics:
+    - Prometheus:
+        icon: prometheus.svg
+        href: "http://prom.skaytacium.com"
+        description: "Monitoring framework"
+        widget:
+            type: prometheus
+            url: "http://localhost:9090"
+    - Grafana:
+        icon: grafana.svg
+        href: "http://mon.skaytacium.com"
+        description: "Data visualization"
+        widget:
+            type: grafana
+            url: "http://localhost:3001"
+            username: sid
+            password: "b\\8Wc|fYc,f@g[|v}l1!|qm@ySm!y>qczTA}h>6="
+
+- Torrents:
+    - qBittorrent:
+        icon: "https://raw.githubusercontent.com/VueTorrent/VueTorrent/master/public/icon.svg"
+        href: "http://torrent.skaytacium.com"
+        description: "Torrent management"
+        widget:
+            type: qbittorrent
+            url: "http://localhost:8112"
+            user: "sid"
+            password: "KS0wT3HUtD??p3:QmsGlOkyov6E<#[#3N:YLBhY1"
+    - Prowlarr:
+        icon: prowlarr.svg
+        href: "http://trackers.skaytacium.com"
+        description: "Tracker management"
+        widget:
+            type: prowlarr
+            url: "http://localhost:9696"
+            key: "ad6be80cac1f4718a4b42a44ab1b8c41"
+
+- Network:
+    - IP:
+        widget:
+            type: customapi
+            url: "https://api6.ipify.org?format=json"
+            refreshInterval: 3600000
+            mappings:
+                - field: ip
+    - LibreSpeed:
+        icon: librespeed.svg
+        href: "http://speed.skaytacium.com"
+        description: "Speed test relative to server"
+    - Technitium DNS:
+        icon: "https://technitium.com/img/logo.png"
+        href: "http://dns.skaytacium.com"
+        description: "DNS management"
+
+- Files:
+    - Filestash:
+        icon: "https://raw.githubusercontent.com/mickael-kerjean/filestash/master/public/assets/logo/app_icon.png"
+        href: "http://files.skaytacium.com"
+        description: "File management"
+    - Syncthing:
+        icon: syncthing.svg
+        href: "http://sync.skaytacium.com"
+        description: "Continuous file synchronization"
+    - Syncthing Relay Server:
+        icon: syncthing.svg
+        description: "Self-hosted server for Syncthing"
+        widget:
+            type: strelaysrv
+            url: "http://localhost:22070"

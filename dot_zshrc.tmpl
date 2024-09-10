@@ -65,15 +65,17 @@ alias du=dust
 alias grep=rg
 alias sed=sd
 alias vol=alsamixer
+alias ps=procs
+alias tree=broot
 
-alias ls="exa --icons"
-alias lsa="exa -a --icons"
-alias l1="exa -1 --icons"
-alias l1a="exa -1a --icons"
-alias ll="exa -lgb --icons --header"
-alias lla="exa -lgba --icons --header"
-alias lt="exa -Tgb -L 3 --icons"
-alias lta="exa -Tgba -L 3 --icons"
+alias ls="eza --icons"
+alias lsa="eza -a --icons"
+alias l1="eza -1 --icons"
+alias l1a="eza -1a --icons"
+alias ll="eza -lgb --icons --header"
+alias lla="eza -lgba --icons --header"
+alias lt="eza -Tgb -L 3 --icons"
+alias lta="eza -Tgba -L 3 --icons"
 
 alias lsblk="lsblk -o +PARTUUID,LABEL"
 alias chkcpu="watch -n 0.2 speak"
@@ -173,5 +175,12 @@ kernelparams() {
 # final touchups
 # XDG_RUNTIME_DIR
 [ -d "/run/user/0" ] || mkdir "/run/user/0"
+
+# asdf slow ass
+# . "$HOME/.asdf/asdf.sh"
+# mise
+eval "$(mise activate zsh)"
+# broot helper function
+source /root/.config/broot/launcher/bash/br
 
 colorscript -r

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+[ -e "/run/fcgiw.sock" ] && rm /run/fcgiw.sock
+
+fcgiwrap -s unix:/run/fcgiw.sock

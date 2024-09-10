@@ -1,0 +1,16 @@
+<Config>
+  <BindAddress>127.0.0.1</BindAddress>
+  <Port>9696</Port>
+  <SslPort>6969</SslPort>
+  <EnableSsl>False</EnableSsl>
+  <LaunchBrowser>True</LaunchBrowser>
+  <ApiKey>ad6be80cac1f4718a4b42a44ab1b8c41</ApiKey>
+  <AuthenticationMethod>External</AuthenticationMethod>
+  <AuthenticationRequired>DisabledForLocalAddresses</AuthenticationRequired>
+  <Branch>master</Branch>
+  <LogLevel>info</LogLevel>
+  <SslCertPath></SslCertPath>
+  <SslCertPassword></SslCertPassword>
+  <UrlBase></UrlBase>
+  <InstanceName>Prowlarr</InstanceName>
+</Config>

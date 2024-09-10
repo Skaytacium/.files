@@ -33,41 +33,110 @@
     make
     make install
     ```
-- jellyfin -> dotnet
+- Jellyfin -> dotnet
     ```sh
 	cd /usr/local/src
 	git clone --depth 1 https://github.com/jellyfin/jellyfin
 	cd jellyfin
-    DOTNET_CLI_TELEMETRY_OPTOUT=1
-	/opt/dotnet/dotnet publish Jellyfin.Server --configuration Release --self-contained --runtime linux-x64 --output /opt/jellyfin -p:DebugSymbols=false -p:DebugType=none -p:UseAppHost=true
+    DOTNET_CLI_TELEMETRY_OUTPUT=1 /opt/dotnet/dotnet publish Jellyfin.Server --configuration Release --self-contained --runtime linux-x64 --output /opt/jellyfin -p:DebugSymbols=false -p:DebugType=none -p:UseAppHost=true
     ```
-- radarr -> dotnet
+- Radarr -> dotnet
     ```sh
     cd /opt
     wget -O radarr "https://radarr.servarr.com/v1/update/master/updatefile?os=linux&runtime=netcore&arch=x64"
     tar xf radarr
     rm radarr
     ```
-- sonarr -> dotnet
+- Sonarr -> dotnet
     ```sh
     cd /opt
-    wget -O sonarr "https://services.sonarr.tv/v1/download/main/latest?version=3&os=linux"
+    wget -O sonarr "https://services.sonarr.tv/v1/download/develop/latest?version=4&os=linux"
     tar xf sonarr
     rm sonarr
     ```
-- prowlarr -> dotnet
+- Prowlarr -> dotnet
     ```sh
     cd /opt
-    curl https://api.github.com/repos/Prowlarr/Prowlarr/releases/latest | rg 'browser_download_url.*linux-core-x64\.tar\.gz' | sd '.*: "(.*)"' '$1' | wget -i -O prowlarr -
+    curl https://api.github.com/repos/Prowlarr/Prowlarr/releases/latest | rg 'browser_download_url.*linux-core-x64\.tar\.gz' | sd '.*: "(.*)"' '$1' | wget -O prowlarr -i -
     tar xf prowlarr
     rm prowlarr
     ```
-- bazarr
+- Bazarr
     ```sh
     cd /opt
     wget -O bazarr "https://github.com/morpheus65535/bazarr/releases/latest/download/bazarr.zip"
     unzip bazarr -d Bazarr
     rm bazarr
+    ```
+- homepage
+    ```
+    ```
+- LibreSpeed
+    ```
+    ```
+- Filestash
+    - Source code modification required in server/plugin/plg_starter_http/index.go to bind to 127.0.0.1
+    ```sh
+    cd /usr/local/src
+    git clone --depth 1 https://github.com/mickael-kerjean/filestash
+    cd filestash
+    pnpm i
+    NODE_ENV=production npm run build
+    go generate -x ./server/...
+    go build -v -ldflags='-extldflags "-lz -lsharpyuv"' -o dist/filestash cmd/main.go
+    cp config/config.json ./dist/data/state/config/
+    cp -r dist /opt/filestash
+    ```
+- VueTorrent
+    ```sh
+    git clone --single-branch --branch nightly-release https://github.com/VueTorrent/VueTorrent.git /opt/VueTorrent
+    ```
+- CyberChef
+    ```sh
+    cd /opt
+    mkdir CyberChef
+    cp CyberChef
+    curl https://api.github.com/repos/gchq/CyberChef/releases/latest | rg 'browser_download_url.*CyberChef.*\.zip' | sd '.*: "(.*)"' '$1' | wget -O CyberChef -i -
+    unzip cyberchef
+    rm cyberchef
+    fd -e txt -x rm
+    ```
+- Grocy
+    ```sh
+    cd /opt
+    mkdir Grocy
+    wget -O grocy https://releases.grocy.info/latest
+    unzip grocy -d Grocy
+    rm grocy
+    ```
+- TheLounge
+    ```sh
+    cd /opt
+    git clone --depth 1 https://github.com/thelounge/thelounge
+    cd thelounge
+    yarn install
+    NODE_ENV=production yarn build
+    yarn start
+    ```
+- OpenBooks
+    ```sh
+    ```
+- Prometheus
+    ```
+    ```
+- node_exporter -> Prometheus
+    ```
+    ```
+- Grafana
+    ```
+    ```
+- Technitium DNS -> dotnet
+    ```sh
+    cd /opt
+    mkdir Technitium
+    cd Technitium
+    wget https://download.technitium.com/dns/DnsServerPortable.tar.gz
+    rm DnsServerPortable.tar.gz
     ```
 - mergerfs-tools
     ```sh
@@ -76,6 +145,19 @@
 	cd mergerfs-tools
 	make install
     ```
+<!-- - Vikunja -->
+<!--     ``` -->
+<!--     ``` -->
+- CouchDB
+    ```sh
+    git clone https://github.com/apache/couchdb
+    ./configure --disable-spidermonkey --disable-docs --js-engine=quickjs
+    mv rel/couchdb /opt
+    ```
+- Deno
+    ```sh
+    curl -fsSL https://deno.land/install.sh | sh
+    ```j
 ### msi
 - OpenTabletDriver -> dotnet
     ```sh
@@ -107,7 +189,7 @@
     ```
 - dotnet
     ```sh
-	curl "https://raw.githubusercontent.com/dotnet/install-scripts/main/src/dotnet-install.sh" | bash -s -- -c STS --install-dir /opt/dotnet
+	curl "https://raw.githubusercontent.com/dotnet/install-scripts/main/src/dotnet-install.sh" | bash -s -- -c LTS --install-dir /opt/dotnet
     ```
 - {dwm, dmenu}
     ```sh
@@ -143,7 +225,11 @@
 	cd ~/.config/mpv/scripts
 	curl https://api.github.com/repos/hoyon/mpv-mpris/releases/latest | rg 'browser_download_url.*so' | sd '.*: "(.*)"' '$1' | wget -i -
     ```
-- corefreq
+- asdf
+    ```sh
+    git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.13.1
+    ```
+- CoreFreq
     ```sh
     cd /usr/local/src
     git clone --depth 1 https://github.com/cyring/CoreFreq

@@ -1,0 +1,11 @@
+theme: dark
+color: neutral
+headerStyle: clean
+
+layout:
+  Media:
+    style: row
+    columns: 3
+  Miscellaneous:
+
+hideVersion: true

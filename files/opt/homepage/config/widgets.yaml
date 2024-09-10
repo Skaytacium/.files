@@ -1,0 +1,13 @@
+# too slow
+# - glances:
+#     url: "http://localhost:61208"
+#     username: "sid"
+#     password: "1911"
+#     cpu: true
+#     mem: true
+#     cputemp: true
+#     uptime: true
+#     disk:
+#         - /
+#         - /media/jbod
+#     expanded: true

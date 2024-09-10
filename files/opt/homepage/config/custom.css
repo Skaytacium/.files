@@ -1,0 +1,12 @@
+div#layout-groups {
+  flex-wrap: nowrap;
+}
+#layout-groups > div:first-child {
+  flex: 3
+}
+#layout-groups > div:last-child {
+  flex: 1
+}
+div.rounded-r-md:first-child > div:first-child {
+  display: none
+}
